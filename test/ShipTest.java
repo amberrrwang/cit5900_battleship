@@ -22,6 +22,11 @@ class ShipTest {
 		
 		//TODO
 		//More tests
+		Ship cruiser = new Cruiser();
+        assertEquals(3, cruiser.getLength());
+
+        Ship destroyer = new Destroyer();
+        assertEquals(2, destroyer.getLength());
 	}
 
 	@Test
@@ -35,6 +40,9 @@ class ShipTest {
 		
 		//TODO
 		//More tests
+		Ship cruiser = new Cruiser();
+        cruiser.placeShipAt(5, 6, false, ocean);
+        assertEquals(5, cruiser.getBowRow());
 	}
 
 	@Test
@@ -49,6 +57,13 @@ class ShipTest {
 		
 		//TODO
 		//More tests
+		Ship cruiser = new Cruiser();
+		cruiser.setBowColumn(7);
+		assertEquals(7, cruiser.getBowColumn());
+		
+		Ship destroyer = new Destroyer();
+		destroyer.setBowColumn(0);
+		assertEquals(0, destroyer.getBowColumn());
 	}
 
 	@Test
@@ -61,7 +76,16 @@ class ShipTest {
 		
 		//TODO
 		//More tests
+		assertFalse(ship.getHit()[2]);
+		assertFalse(ship.getHit()[3]);
+
+		Ship cruiser = new Cruiser();
+		assertEquals(3, cruiser.getHit().length);
+		assertFalse(cruiser.getHit()[0]);
+		assertFalse(cruiser.getHit()[1]);
+		assertFalse(cruiser.getHit()[2]);
 	}
+
 	@Test
 	void testGetShipType() {
 		ship = new Battleship();
@@ -69,6 +93,9 @@ class ShipTest {
 		
 		//TODO
 		//More tests
+		assertEquals("cruiser", new Cruiser().getShipType());
+		assertEquals("destroyer", new Destroyer().getShipType());
+		assertEquals("submarine", new Submarine().getShipType());
 	}
 	
 	@Test

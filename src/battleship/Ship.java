@@ -1,6 +1,6 @@
 package battleship;
 
-public class Ship {
+public abstract class Ship {
     private int bowRow;
     private int bowColumn;
     private int length;

@@ -59,6 +59,11 @@ public class Ocean {
   public int getHitCount() {
     return hitCount; 
   }
+
+  /**
+    * Returns number of hits recorded (in the game)
+    */
+  
   
   /**
     * Places all ten ships randomly on the (initially empty) ocean 

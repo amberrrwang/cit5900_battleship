@@ -55,6 +55,31 @@ public abstract class Ship {
 
     // other methods
     /**
+     * If the ship hasn’t been sunk, mark that part of the ship as “hit” and return true; otherwise return false.
+     * @param row
+     * @param column 
+     */
+    boolean shootAt (int row, int column) {
+        // if already sunk, don't count hits 
+        if(isSunk()) {
+            return false;
+        } 
+        int index;
+
+        if(horizontal()) {
+            index = bowColumn - column;
+        } else {
+            index = bowRow - row; 
+        }
+        // marked as hit 
+        if(index >= 0 && index < getLength()) {
+        getHit()[index] = true; 
+        return true;
+        }
+        return false; 
+    }   
+    
+    /**
      * Returns true if it is legal to place a ship of this length with its bow in this location, false otherwise
      * @param row
      * @param column

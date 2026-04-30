@@ -10,16 +10,19 @@ public class Ocean {
 
   //constructor
   public Ocean() {
+    ships = new Ship[10][10];
+
     shotsFired = 0;
     hitCount = 0;
     shipsSunk = 0;
 
     for (int row = 0; row < 10; row++) {
-      for (int col = 0; col < 10; col++) {
-        ships[row][col] = new EmptySea(); 
-      }
+        for (int col = 0; col < 10; col++) {
+            ships[row][col] = new EmptySea();
+            ships[row][col].placeShipAt(row, col, true, this);
+        }
     }
-  }
+}
   
   //methods
   /**

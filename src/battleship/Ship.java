@@ -7,7 +7,7 @@ public abstract class Ship {
     private boolean horizontal;
     private boolean[] hit;
     
-    // Constructor: set the length of the ship and initialize the hit array
+    // constructor: set the length of the ship and initialize the hit array
     public Ship(int length) {
         this.length = length;
         this.hit = new boolean[length];
@@ -95,24 +95,24 @@ public abstract class Ship {
     public boolean okToPlaceShipAt(int row, int column, boolean horizontal, Ocean ocean) {
      Ship[][] ships = ocean.getShipArray(); 
         
-    //making sure the ship is in the 10x10 grid 
+    // making sure the ship is in the 10x10 grid 
     if(horizontal) {
         if(column - (getLength() - 1) < 0) return false;
     } else {
         if(row - (getLength() - 1) < 0) return false; 
         }
 
-    //looping though each square of the ship
+    // looping though each square of the ship
     for(int i = 0; i < getLength(); i++) {
         int r = row;
         int c = column;
 
         if(horizontal) {
-            c = column - i; //updates length of column
+            c = column - i; // updates length of column
         } else {
-            r = row - i; //updates length of row 
+            r = row - i; // updates length of row 
             }
-    //checks whether the square and all surrounding squares are emptysea (different ships cannot be touching)
+    // checks whether the square and all surrounding squares are emptysea (different ships cannot be touching)
     for(int rowShift = -1; rowShift <= 1; rowShift++) {
         for(int colShift = -1; colShift <= 1; colShift++) {
             int newR = r + rowShift;

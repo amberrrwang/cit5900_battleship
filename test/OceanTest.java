@@ -117,10 +117,23 @@ class OceanTest {
 		horizontal = false;
 		submarine.placeShipAt(row, column, horizontal, ocean);
 		
-		assertTrue(ocean.isOccupied(1, 5));
-		
-		//TODO
-		//More tests
+		assertTrue(ocean.isOccupied(1, 5)); //Tests that its occupied 
+
+		//More tests 
+		assertTrue(ocean.isOccupied(0, 0));   //Test that its occupied by submarine
+		assertTrue(ocean.isOccupied(0, 5));   //Test second part of destroyer
+
+		assertFalse(ocean.isOccupied(9, 9));  //Test empty space
+		assertFalse(ocean.isOccupied(2, 2));  //Test empty space
+
+		//Fresh ocean
+		Ocean newOcean = new Ocean(); //New object
+		assertFalse(newOcean.isOccupied(3, 3)); //Should not have a ship on this new ocean
+
+		//New ship placement
+		Submarine sub2 = new Submarine(); //New object 
+		sub2.placeShipAt(4, 4, false, newOcean); //Places submarine 
+		assertTrue(newOcean.isOccupied(4, 4)); //Should be occupied from this new submarine 
 	}
 
 	@Test
@@ -138,8 +151,19 @@ class OceanTest {
 		assertFalse(destroyer.isSunk());
 		assertTrue(ocean.shootAt(0, 5));
 		
-		//TODO
 		//More tests
+		assertTrue(destroyer.isSunk()); //Making sure the destroyer is sunk after last shot 
+		assertFalse(ocean.shootAt(9, 9)); //Testing if it stays false with miss
+		assertFalse(ocean.shootAt(0, 5)); //Now should be false 
+
+		assertFalse(ocean.shootAt(1, 5)); //Hitting a ship that is already sunk should return false 
+
+		//Add submarine 
+		Submarine sub = new Submarine();
+		sub.placeShipAt(5, 5, false, ocean);
+
+		assertTrue(ocean.shootAt(5, 5));
+		assertTrue(sub.isSunk()); //Submarine length = 1, so should be sunk 
 	}
 
 	@Test
@@ -170,8 +194,15 @@ class OceanTest {
 		assertTrue(destroyer.isSunk());
 		assertEquals(6, ocean.getShotsFired());
 		
-		//TODO
-		//More tests
+		//More Tests 
+		ocean.shootAt(1, 5); //shooting at the same spot 
+		assertEquals(7, ocean.getShotsFired()); //making sure it's the correct amount of shots fired 
+
+		//Fresh ocean
+		Ocean newOcean = new Ocean(); //Creates new object
+		newOcean.shootAt(2, 2); //Shoots at fresh ocean 
+		assertEquals(1, newOcean.getShotsFired()); //One shot on new ocean 
+		
 	}
 
 	@Test
@@ -187,8 +218,19 @@ class OceanTest {
 		assertFalse(destroyer.isSunk());
 		assertEquals(1, ocean.getHitCount());
 		
-		//TODO
 		//More tests
+		assertTrue(ocean.shootAt(0, 5));  //Second hit at this spot
+		assertEquals(2, ocean.getHitCount()); //Should be equal to two
+		
+		assertFalse(ocean.shootAt(9, 9)); //Making sure a miss does not increase hit count
+		assertEquals(2, ocean.getHitCount()); //Should stay at 2 if it's a miss 
+
+		//Submarine test 
+		Submarine sub = new Submarine(); //Create new object 
+		sub.placeShipAt(4, 4, false, ocean); //Place submarine 
+
+		assertTrue(ocean.shootAt(4, 4)); //Shoot at 4,4 
+		assertEquals(3, ocean.getHitCount()); //Should equal 3 total now 
 	}
 	
 	@Test
@@ -205,8 +247,20 @@ class OceanTest {
 		assertEquals(1, ocean.getHitCount());
 		assertEquals(0, ocean.getShipsSunk());
 		
-		//TODO
 		//More tests
+		assertTrue(ocean.shootAt(0, 5));  //Destroyer should sink 
+		assertTrue(destroyer.isSunk()); //Confirming destroyer is sunk 
+		assertEquals(1, ocean.getShipsSunk()); //One ship should be sunk 
+		
+		ocean.shootAt(1, 5); //Second hit 
+		assertEquals(1, ocean.getShipsSunk()); //Making sure the sunken ship number doesn't increase 
+
+		//Add submarine 
+		Submarine sub = new Submarine(); //New object
+		sub.placeShipAt(3, 3, false, ocean); //Place submarine 
+
+		assertTrue(ocean.shootAt(3, 3)); //Should sink submarine 
+		assertEquals(2, ocean.getShipsSunk()); //Submarine = 1 so confirms submarine is sunk 
 	}
 
 	@Test
@@ -218,8 +272,18 @@ class OceanTest {
 		
 		assertEquals("empty", shipArray[0][0].getShipType());
 		
-		//TODO
 		//More tests
+		Destroyer destroyer = new Destroyer(); //Create new object 
+		destroyer.placeShipAt(1, 5, false, ocean); //place destroyer at 1, 5 
+
+		assertEquals("destroyer", shipArray[1][5].getShipType()); //The destroyer should be at this spot
+		assertEquals("destroyer", shipArray[0][5].getShipType()); //The destoryer should also be at this spot
+
+		//Add submarine
+		Submarine sub = new Submarine(); //New object
+		sub.placeShipAt(2, 2, false, ocean); //Place submarine 
+
+		assertEquals("submarine", shipArray[2][2].getShipType()); //There should be a submarine at this location
 	}
 
 }

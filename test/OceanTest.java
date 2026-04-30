@@ -1,13 +1,13 @@
 package battleship;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
-class OceanTest {
+public class OceanTest {
 
 	Ocean ocean;
 	
@@ -17,13 +17,13 @@ class OceanTest {
 	static int NUM_SUBMARINES = 4;
 	static int OCEAN_SIZE = 10;
 	
-	@BeforeEach
-	void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		ocean = new Ocean();
 	}
 	
 	@Test
-	void testEmptyOcean() {
+	public void testEmptyOcean() {
 		
 		//tests that all locations in the ocean are "empty"
 		
@@ -48,7 +48,7 @@ class OceanTest {
 	}
 	
 	@Test
-	void testPlaceAllShipsRandomly() {
+	public void testPlaceAllShipsRandomly() {
 		
 		//tests that the correct number of each ship type is placed in the ocean
 		
@@ -103,7 +103,7 @@ class OceanTest {
 	}
 
 	@Test
-	void testIsOccupied() {
+	public void testIsOccupied() {
 
 		Destroyer destroyer = new Destroyer();
 		int row = 1;
@@ -137,7 +137,7 @@ class OceanTest {
 	}
 
 	@Test
-	void testShootAt() {
+	public void testShootAt() {
 	
 		assertFalse(ocean.shootAt(0, 1));
 		
@@ -167,7 +167,7 @@ class OceanTest {
 	}
 
 	@Test
-	void testGetShotsFired() {
+	public void testGetShotsFired() {
 		
 		//should be all false - no ships added yet
 		assertFalse(ocean.shootAt(0, 1));
@@ -206,7 +206,7 @@ class OceanTest {
 	}
 
 	@Test
-	void testGetHitCount() {
+	public void testGetHitCount() {
 		
 		Destroyer destroyer = new Destroyer();
 		int row = 1;
@@ -234,7 +234,7 @@ class OceanTest {
 	}
 	
 	@Test
-	void testGetShipsSunk() {
+	public void testGetShipsSunk() {
 		
 		Destroyer destroyer = new Destroyer();
 		int row = 1;
@@ -264,7 +264,7 @@ class OceanTest {
 	}
 
 	@Test
-	void testGetShipArray() {
+	public void testGetShipArray() {
 		
 		Ship[][] shipArray = ocean.getShipArray();
 		assertEquals(OCEAN_SIZE, shipArray.length);

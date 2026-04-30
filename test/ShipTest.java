@@ -1,22 +1,22 @@
 package battleship;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
-class ShipTest {
+public class ShipTest {
 
 	Ocean ocean;
 	Ship ship;
 	
-	@BeforeEach
-	void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		ocean = new Ocean();
 	}
 
 	@Test
-	void testGetLength() {
+	public void testGetLength() {
 		ship = new Battleship();
 		assertEquals(4, ship.getLength());
 		
@@ -31,7 +31,7 @@ class ShipTest {
 	}
 
 	@Test
-	void testGetBowRow() {
+	public void testGetBowRow() {
 		Ship battleship = new Battleship();
 		int row = 0;
 		int column = 4;
@@ -59,7 +59,7 @@ class ShipTest {
 	}
 
 	@Test
-	void testGetBowColumn() {
+	public void testGetBowColumn() {
 		Ship battleship = new Battleship();
 		int row = 0;
 		int column = 4;
@@ -82,13 +82,13 @@ class ShipTest {
 		cruiser.setBowColumn(7);
 		assertEquals(7, cruiser.getBowColumn());
 		// test destroyer placement
-		Ship destroyer = new Destroyer();
-		destroyer.setBowColumn(0);
-		assertEquals(0, destroyer.getBowColumn());
+		Ship destroyer2 = new Destroyer();
+		destroyer2.setBowColumn(0);
+		assertEquals(0, destroyer2.getBowColumn());
 	}
 
 	@Test
-	void testGetHit() {
+	public void testGetHit() {
 		ship = new Battleship();
 		boolean[] hits = new boolean[4];
 		assertArrayEquals(hits, ship.getHit());
@@ -117,7 +117,7 @@ class ShipTest {
 	}
 
 	@Test
-	void testGetShipType() {
+	public void testGetShipType() {
 		ship = new Battleship();
 		assertEquals("battleship", ship.getShipType());
 		
@@ -129,7 +129,7 @@ class ShipTest {
 	}
 	
 	@Test
-	void testIsHorizontal() {
+	public void testIsHorizontal() {
 		Ship battleship = new Battleship();
 		int row = 0;
 		int column = 4;
@@ -158,7 +158,7 @@ class ShipTest {
 	}
 	
 	@Test
-	void testSetBowRow() {
+	public void testSetBowRow() {
 		Ship battleship = new Battleship();
 		int row = 0;
 		int column = 4;
@@ -180,7 +180,7 @@ class ShipTest {
 	}
 
 	@Test
-	void testSetBowColumn() {
+	public void testSetBowColumn() {
 		Ship battleship = new Battleship();
 		int row = 0;
 		int column = 4;
@@ -202,7 +202,7 @@ class ShipTest {
 	}
 
 	@Test
-	void testSetHorizontal() {
+	public void testSetHorizontal() {
 		Ship battleship = new Battleship();
 		int row = 0;
 		int column = 4;
@@ -225,7 +225,7 @@ class ShipTest {
 	}
 
 	@Test
-	void testOkToPlaceShipAt() {
+	public void testOkToPlaceShipAt() {
 		
 		//test when other ships are not in the ocean
 		Ship battleship = new Battleship();
@@ -233,17 +233,17 @@ class ShipTest {
 		int column = 4;
 		boolean horizontal = true;
 		boolean ok = battleship.okToPlaceShipAt(row, column, horizontal, ocean);
-		assertTrue(ok, "OK to place ship here.");
+		assertTrue("OK to place ship here.", ok);
 		
 		//TODO
 		//More tests
-		assertTrue(ship.okToPlaceShipAt(0, 4, true, ocean));
-        assertFalse(ship.okToPlaceShipAt(0, 2, true, ocean));
-        assertFalse(ship.okToPlaceShipAt(2, 0, false, ocean));
+		assertTrue(battleship.okToPlaceShipAt(0, 4, true, ocean));
+        assertFalse(battleship.okToPlaceShipAt(0, 2, true, ocean));
+        assertFalse(battleship.okToPlaceShipAt(2, 0, false, ocean));
 	}
 	
 	@Test
-	void testOkToPlaceShipAtAgainstOtherShipsOneBattleship() {
+	public void testOkToPlaceShipAtAgainstOtherShipsOneBattleship() {
 		
 		//test when other ships are in the ocean
 		
@@ -253,7 +253,7 @@ class ShipTest {
 		int column = 4;
 		boolean horizontal = true;
 		boolean ok1 = battleship1.okToPlaceShipAt(row, column, horizontal, ocean);
-		assertTrue(ok1, "OK to place ship here.");
+		assertTrue("OK to place ship here.", ok1);
 		battleship1.placeShipAt(row, column, horizontal, ocean);
 
 		//test second ship
@@ -262,7 +262,7 @@ class ShipTest {
 		column = 4;
 		horizontal = true;
 		boolean ok2 = battleship2.okToPlaceShipAt(row, column, horizontal, ocean);
-		assertFalse(ok2, "Not OK to place ship vertically adjacent below.");
+		assertFalse("Not OK to place ship vertically adjacent below.", ok2);
 		
 		//TODO
 		//More tests
@@ -272,25 +272,25 @@ class ShipTest {
 		column = 4;
 		horizontal = true;
 		boolean ok3 = battleship3.okToPlaceShipAt(row, column, horizontal, ocean);
-		assertFalse(ok3, "Not OK to overlap with existing ship.");
+		assertFalse("Not OK to overlap with existing ship.", ok3);
 		// test diagonal adjacent
 		Battleship battleship5 = new Battleship();
 		row = 1;
 		column = 5;
 		horizontal = true;
 		boolean ok5 = battleship5.okToPlaceShipAt(row, column, horizontal, ocean);
-		assertFalse(ok5, "Not OK to place ship diagonally adjacent.");
+		assertFalse("Not OK to place ship diagonally adjacent.", ok5);
 		// test far away (valid placement)
 		Battleship battleship6 = new Battleship();
 		row = 5;
 		column = 5;
 		horizontal = true;
 		boolean ok6 = battleship6.okToPlaceShipAt(row, column, horizontal, ocean);
-		assertTrue(ok6, "OK to place ship far away.");
+		assertTrue("OK to place ship far away.", ok6);
 	}
 
 	@Test
-	void testPlaceShipAt() {
+	public void testPlaceShipAt() {
 		
 		Ship battleship = new Battleship();
 		int row = 0;
@@ -324,7 +324,7 @@ class ShipTest {
 	}
 
 	@Test
-	void testShootAt() {
+	public void testShootAt() {
 		
 		Ship battleship = new Battleship();
 		int row = 0;
@@ -338,6 +338,7 @@ class ShipTest {
 		
 		//TODO
 		//More tests
+		assertTrue(battleship.shootAt(0, 9));
 		// test shooting another part of horizontal ship
 		assertTrue(battleship.shootAt(0, 8));
 		boolean[] hitArray2 = {true, true, false, false};
@@ -366,7 +367,7 @@ class ShipTest {
 	}
 	
 	@Test
-	void testIsSunk() {
+	public void testIsSunk() {
 		
 		Ship submarine = new Submarine();
 		int row = 3;
@@ -401,7 +402,7 @@ class ShipTest {
 	}
 
 	@Test
-	void testToString() {
+	public void testToString() {
 		
 		Ship battleship = new Battleship();
 		assertEquals("x", battleship.toString());

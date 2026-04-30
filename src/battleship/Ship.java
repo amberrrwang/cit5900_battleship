@@ -59,22 +59,28 @@ public abstract class Ship {
      * @param row
      * @param column 
      */
-    boolean shootAt (int row, int column) {
+    public boolean shootAt(int row, int column) {
         // if already sunk, don't count hits 
         if(isSunk()) {
             return false;
         } 
         int index;
 
-        if(horizontal()) {
+        if(isHorizontal()) {
+            if (row != bowRow) {
+                return false;
+            }
             index = bowColumn - column;
         } else {
+            if (column != bowColumn) {
+                return false;
+            }
             index = bowRow - row; 
         }
         // marked as hit 
         if(index >= 0 && index < getLength()) {
-        getHit()[index] = true; 
-        return true;
+            getHit()[index] = true; 
+            return true;
         }
         return false; 
     }   
@@ -108,7 +114,7 @@ public abstract class Ship {
             }
     //checks whether the square and all surrounding squares are emptysea (different ships cannot be touching)
     for(int rowShift = -1; rowShift <= 1; rowShift++) {
-        for(int colShift = -1; colShift <= 1; colShift++ {
+        for(int colShift = -1; colShift <= 1; colShift++) {
             int newR = r + rowShift;
             int newC = c + colShift;
 
@@ -138,7 +144,7 @@ public abstract class Ship {
 
     Ship[][] ships = ocean.getShipArray();
     
-    for(int i = 0; i < getLength; i++) {
+    for(int i = 0; i < getLength(); i++) {
         if(horizontal) {
             ships[row][column - i] = this;
         } else {
@@ -146,11 +152,6 @@ public abstract class Ship {
         }
     }
  }
-    
-    // returns true if the given location contains a part of the ship and hasn't been sunk, false otherwise
-    public boolean shootAt(int row, int column) {
-        return false;
-    }
     // returns true if every part of the ship has been hit, false otherwise
     public boolean isSunk() {
         for (boolean partHit : hit) {
